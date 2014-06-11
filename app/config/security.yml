@@ -1,12 +1,24 @@
 security:
-    providers:
-        in_memory:
-            memory: ~
+  firewalls:
+    secured_area:
+      pattern: /forum
+      logout: 
+      http_basic:
+        realm: "Forum"
+      stateless: true
 
-    firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+  access_control:
+    - { path : /forum/sections, method: POST, roles: ROLE_ADMIN }
+    - { path : /forum, roles: ROLE_USER }
 
-        default:
-            anonymous: ~
+  providers:
+    database:
+      entity: { IlisUsersBundle:User }
+
+  encoders:
+    Symfony\Component\Security\Core\User\User:
+      algorithm: bcrypt
+      cost: 15
+    
+  role_hierarchy:
+    ROLE_ADMIN:  [ROLE_USER]
