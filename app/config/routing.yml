@@ -1,3 +1,7 @@
+ilis_users:
+    resource: "@IlisUsersBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ilis_forum:
     resource: "@IlisForumBundle/Resources/config/routing.yml"
     prefix:   /
